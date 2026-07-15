@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useAuth from '../Authentication/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../api/axios'
@@ -69,10 +69,11 @@ const Register = () => {
     }
 
   return (
-    <div class="flex border-amber-500">
+    <div class="flex flex-col border-amber-500">
       <form onSubmit={handleRegister}>
-            <div class = "flex justify-center align-middle">
+            <div class = "flex flex-col justify-center align-middle">
                 <input 
+                    class="self-center"
                     type="text" 
                     placeholder='Enter email...'
                     value={email}
@@ -80,6 +81,7 @@ const Register = () => {
                     required
                 />
                 <input 
+                    class="self-center"
                     type="text" 
                     placeholder='Enter username...'
                     value={username}
@@ -87,6 +89,7 @@ const Register = () => {
                     required
                 />
                 <input 
+                    class="self-center"
                     type="password" 
                     placeholder='Enter password...'
                     value={password}
@@ -94,6 +97,7 @@ const Register = () => {
                     required
                 />
                 <input 
+                    class="self-center"
                     type="password" 
                     placeholder='Repeat password...'
                     value={confirm}
@@ -101,7 +105,7 @@ const Register = () => {
                     required
                 />
             </div>
-            <button type='submit'>Register</button>
+            <button class="m-2"type='submit'>Register</button>
             <button onClick={() => {nav("/")}}>Cancel</button>
         </form>
     </div>

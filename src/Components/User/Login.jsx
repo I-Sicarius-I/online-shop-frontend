@@ -38,13 +38,12 @@ const Login = () => {
                 }
             );
 
-            // if(res.data.status !== 200)
-            // {
-            //     console.log(res.data)
-            // }
-
+            if(res.status !== 200){
+                throw new Error("status: " + res.data)
+            }
 
             const token = res.data.token;
+
             setToken(token)
             setIsLoggedIn(true)
 
@@ -59,8 +58,9 @@ const Login = () => {
   return (
 <div class="flex border-amber-500 border-solid border-2">
       <form onSubmit={handleLogin}>
-            <div class = "flex justify-center align-middle">
+            <div class = "flex flex-col justify-center align-middle">
                 <input 
+                    class="self-center"
                     type="text" 
                     placeholder='Enter email...'
                     value={email}
@@ -68,6 +68,7 @@ const Login = () => {
                     required
                 />
                 <input 
+                    class="self-center"
                     type="password" 
                     placeholder='Enter password...'
                     value={password}
@@ -75,8 +76,8 @@ const Login = () => {
                     required
                 />
             </div>
-            <button type='submit'>Login</button>
-            <button onClick={() => {nav("/")}}>Cancel</button>
+            <button class="m-2" type='submit'>Login</button>
+            <button class="m-2" onClick={() => {nav("/")}}>Cancel</button>
         </form>
     </div>
   )

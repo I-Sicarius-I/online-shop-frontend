@@ -15,7 +15,7 @@ const ProductsList = () => {
     }, [])
 
   return (
-    <div>
+    <div class="flex-col">
         <h1>Test</h1>
       {products.map((product) => (<ProductCard key={product.id} product={product}/>))}
     </div>
