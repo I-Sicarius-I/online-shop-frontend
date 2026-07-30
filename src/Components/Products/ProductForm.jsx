@@ -7,8 +7,7 @@ import axios, { BASE_URL } from "../../api/axios"
 
 const PRODUCT_URL = "/products"
 
-const ProductForm = () => {
-
+const ProductForm = ({id = null, product=null}) => {
 
     const [name, setName] = useState("")
     const [type, setType] = useState("")
@@ -21,6 +20,17 @@ const ProductForm = () => {
     const [userEmail, setUserEmail] = useState("")
     const {isLoggedIn, token} = useAuth()
     const nav = useNavigate()
+
+    useEffect(() => {
+        if(typeof id !== "undefined" || id !== null){
+            setName(product.name)
+            setType(product.type)
+            setState(product.state)
+            setDescription(product.description)
+            setQuantity(product.quantity)
+            setPrice(product.price)
+        }
+    }, [])
 
     useEffect(() => {
         const currEmail = useGetEmail()
@@ -39,6 +49,7 @@ const ProductForm = () => {
         const data = {
             name: name,
             type: type,
+            description: description,
             state: state,
             quantity: quantity,
             price: price,
@@ -47,7 +58,15 @@ const ProductForm = () => {
         }
 
         try{
-            const res = await axios.post(BASE_URL + PRODUCT_URL,
+            const res = (typeof id === "undefined") ? await axios.post(BASE_URL + PRODUCT_URL,
+                data,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            ) : await axios.patch(BASE_URL + PRODUCT_URL + "/" + id,
                 data,
                 {
                     headers: {
@@ -57,7 +76,7 @@ const ProductForm = () => {
                 }
             )
 
-            if(res.status != 201)
+            if(res.status != 201 || res.status != 200)
             {
                console.log(res.data)
             }
@@ -127,7 +146,7 @@ const ProductForm = () => {
        </div>): (
         <div class="flex flex-col">
             <p>Users without account can't post product offers</p>
-            <button onClick={() => nav("/")}>Get back to Home</button>
+            <button class="border-2 border-indigo-300" onClick={() => nav("/")}>Get back to Home</button>
        </div>)} 
     </>
   )
