@@ -4,6 +4,7 @@ import ProductEdit from '../Products/ProductEdit'
 import ProductPost from '../Products/ProductPost'
 import axios, { BASE_URL } from "../../api/axios"
 import ProductPage from '../Products/ProductPage'
+import ProfilePage from '../User/ProfilePage'
 
 const Home = React.lazy(() => import("../Home"))
 const Login = React.lazy(() => import("../User/Login"))
@@ -23,21 +24,47 @@ const RouterPaths = createBrowserRouter([
         element: <Register />
     },
     {
+        path: "/user/:username",
+        loader: async({params}) => {
+            try{
+                let user = await axios.get(BASE_URL + "/users?username=" + params.username,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                })
+                console.log(user.data)
+                return user
+            }
+            catch(error)
+            {
+                console.error(error)
+                return error
+            }
+        },
+        element: <ProfilePage/>
+    },
+    {
         path: "/add-product",
         element: <ProductPost />
     },
     {
         path: "/edit-product/:id",
         loader: async({params}) => {
-            let product = await axios.get(BASE_URL + "/products/" + params.id,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            }    
-            )
+            try{
+                let product = await axios.get(BASE_URL + "/products/" + params.id,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }    
+                )
 
-            return product.data
+                return product.data
+            }catch(error){
+                console.error(error)
+                return error.data
+            }
         },
         element: <ProductEdit/>
     },

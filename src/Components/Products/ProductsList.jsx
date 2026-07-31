@@ -4,19 +4,37 @@ import ProductCard from './ProductCard';
 
 
 
-const ProductsList = () => {
+const ProductsList = ({email = ""}) => {
     const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        axios.get(`${BASE_URL}/products`).then((response) => {
-            setProducts(response.data)
-            console.log("products")
+    const loadProducts = async() => {
+      const url = `${BASE_URL}/products` + (email !== "" ? `?email=${email}` : "")
+
+      try
+      {
+        let res = await axios.get(url, {
+          headers: {
+            "Content-Type": "application/json"
+          }
         })
+
+        if(res.status !== 200){
+          console.error(res)
+          return
+        }
+
+        setProducts(res.data)
+      }
+      catch(error){
+        console.error(error)
+      }
+    }
+    useEffect(() => {
+      loadProducts()
     }, [])
 
   return (
     <div class="flex-col">
-        <h1>Test</h1>
       {products.map((product) => (<ProductCard key={product.id} product={product}/>))}
     </div>
   )
