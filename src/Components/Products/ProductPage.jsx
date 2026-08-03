@@ -54,6 +54,7 @@ const ProductPage = () => {
       <p>{product.quantity} left</p>
       <p>{product.price}$</p>
       <p>{product.rating} / 10</p>
+      <p>Owner: {product.sellerId}</p>
       <div class="flex-row justify-between">
         {isSeller && <button class="border-2 border-amber-600 m-3" onClick={() => nav(`/edit-product/${id}`)}>Edit Product</button>}
         {isSeller && <button class="border-2 border-amber-600 m-3" type="submit" onClick={() => handleDelete()}>Delete product</button>}

@@ -5,6 +5,7 @@ import ProductPost from '../Products/ProductPost'
 import axios, { BASE_URL } from "../../api/axios"
 import ProductPage from '../Products/ProductPage'
 import ProfilePage from '../User/ProfilePage'
+import DeleteProfile from '../User/DeleteProfile'
 
 const Home = React.lazy(() => import("../Home"))
 const Login = React.lazy(() => import("../User/Login"))
@@ -43,6 +44,10 @@ const RouterPaths = createBrowserRouter([
             }
         },
         element: <ProfilePage/>
+    },
+    {
+        path: "/user/:username/delete",
+        element: <DeleteProfile/>
     },
     {
         path: "/add-product",

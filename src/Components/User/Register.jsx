@@ -39,11 +39,11 @@ const Register = () => {
 
         try{
             const res = await axios.post(BASE_URL + REGISTER_URL, 
-                JSON.stringify({
+                {
                     email: email,
                     username: username,
                     password: password
-                }),
+                },
                 {
                   headers:    {
                     "Content-Type": "application/json",
@@ -51,13 +51,14 @@ const Register = () => {
                 }
             )
 
-            if (res.data.status !== 201){
+            if (res.status !== 201){
                 console.log(res)
-                // return null;
+                return
             }
 
 
-            const token = localStorage.setItem("token", res.data.token);
+            const token = res.data.token
+            localStorage.setItem("token", token);
 
             setToken(token);
             setIsLoggedIn(true);
