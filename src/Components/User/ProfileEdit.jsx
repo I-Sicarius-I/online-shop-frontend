@@ -5,6 +5,11 @@ import useAuth from "../Authentication/AuthContext"
 
 const ProfileEdit = ({user, isEditing, setIsEditing}) => {
     const [username, setUsername] = useState(user.username)
+    const [fname, setFname] = useState(user.fname)
+    const [lname, setLname] = useState(user.lname)
+    const [address, setAddress] = useState(user.address)
+    const [city, setCity] = useState(user.city)
+    const [code, setCode] = useState(user.code)
     const [about, setAbout] = useState(user.about)
 
     const nav = useNavigate()
@@ -53,6 +58,46 @@ const ProfileEdit = ({user, isEditing, setIsEditing}) => {
                 placeholder="Enter username..."
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+            />
+            <input 
+                class="self-center"
+                type="text" 
+                placeholder='Enter first name...'
+                value={fname}
+                onChange={(event) => {setFname(event.target.value)}}
+                required
+            />
+            <input 
+                class="self-center"
+                type="text" 
+                placeholder='Enter last name...'
+                value={lname}
+                onChange={(event) => {setLname(event.target.value)}}
+                required
+            />
+            <input 
+                class="self-center"
+                type="text" 
+                placeholder='Enter address...'
+                value={address}
+                onChange={(event) => {setAddress(event.target.value)}}
+                required
+            />
+            <input 
+                class="self-center"
+                type="text" 
+                placeholder='Enter city name...'
+                value={city}
+                onChange={(event) => {setCity(event.target.value)}}
+                required
+            />
+            <input 
+                class="self-center"
+                type="text" 
+                placeholder='Enter code...'
+                value={code}
+                onChange={(event) => {setCode(event.target.value)}}
+                required
             />
             <input 
                 class="self-center"

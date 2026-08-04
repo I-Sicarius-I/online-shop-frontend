@@ -11,6 +11,11 @@ const REGISTER_URL = "/auth/register"
 const Register = () => {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
+    const [fname, setFname] = useState("")
+    const [lname, setLname] = useState("")
+    const [address, setAddress] = useState("")
+    const [city, setCity] = useState("")
+    const [code, setCode] = useState("")
     const [password, setPassword] = useState("")
     const [confirm, setConfirm] = useState("")
     const [checkEmail, setCheckEmail] = useState(false);
@@ -42,6 +47,11 @@ const Register = () => {
                 {
                     email: email,
                     username: username,
+                    fname: fname,
+                    lname: lname,
+                    address: address,
+                    city: city,
+                    code: code,
                     password: password
                 },
                 {
@@ -87,6 +97,46 @@ const Register = () => {
                     placeholder='Enter username...'
                     value={username}
                     onChange={(event) => {setUsername(event.target.value)}}
+                    required
+                />
+                <input 
+                    class="self-center"
+                    type="text" 
+                    placeholder='Enter first name...'
+                    value={fname}
+                    onChange={(event) => {setFname(event.target.value)}}
+                    required
+                />
+                <input 
+                    class="self-center"
+                    type="text" 
+                    placeholder='Enter last name...'
+                    value={lname}
+                    onChange={(event) => {setLname(event.target.value)}}
+                    required
+                />
+                <input 
+                    class="self-center"
+                    type="text" 
+                    placeholder='Enter address...'
+                    value={address}
+                    onChange={(event) => {setAddress(event.target.value)}}
+                    required
+                />
+                <input 
+                    class="self-center"
+                    type="text" 
+                    placeholder='Enter city name...'
+                    value={city}
+                    onChange={(event) => {setCity(event.target.value)}}
+                    required
+                />
+                <input 
+                    class="self-center"
+                    type="text" 
+                    placeholder='Enter code...'
+                    value={code}
+                    onChange={(event) => {setCode(event.target.value)}}
                     required
                 />
                 <input 

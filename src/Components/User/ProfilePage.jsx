@@ -15,7 +15,6 @@ const ProfilePage = () => {
     let user = data.data
     const [exists, setExists] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
-    const [isDeleting, setIsDeleting] = useState(false)
 
     const nav = useNavigate()
     
@@ -41,6 +40,7 @@ const ProfilePage = () => {
         <p>Contact info</p>
         <ul>
           <li>{user.email}</li>
+          <li>{user.city}</li>
         </ul>
       </>)}</div>) : (<p>ERROR 404: User does not exist</p>)}
       <a href="/">Go back to Home</a>
