@@ -22,7 +22,7 @@ const ProductForm = ({id = null, product=null}) => {
     const nav = useNavigate()
 
     useEffect(() => {
-        if(typeof id !== "undefined" || id !== null){
+        if(typeof id !== "undefined" && id !== null){
             setName(product.name)
             setType(product.type)
             setState(product.state)
@@ -58,7 +58,7 @@ const ProductForm = ({id = null, product=null}) => {
         }
 
         try{
-            const res = (typeof id === "undefined") ? await axios.post(BASE_URL + PRODUCT_URL,
+            const res = (id === null || typeof id === "undefined") ? await axios.post(BASE_URL + PRODUCT_URL,
                 data,
                 {
                     headers: {

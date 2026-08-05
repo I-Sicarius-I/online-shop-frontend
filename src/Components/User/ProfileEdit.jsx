@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios, { BASE_URL } from "../../api/axios"
 import useAuth from "../Authentication/AuthContext"
@@ -20,6 +20,11 @@ const ProfileEdit = ({user, isEditing, setIsEditing}) => {
 
         const data = {
             username: username,
+            fname: fname,
+            lname: lname,
+            address: address,
+            city: city,
+            code: code,
             about: about
         }
 
@@ -47,6 +52,17 @@ const ProfileEdit = ({user, isEditing, setIsEditing}) => {
             console.error(e)
         }
     }
+
+    useEffect(() => {
+        setUsername(user.username)
+        setFname(user.fname)
+        setLname(user.lname)
+        setAddress(user.address)
+        setCity(user.city)
+        setCode(user.code)
+        setAbout(user.about)
+    }, [])
+
 
   return (
     <div class="flex-col">
@@ -107,7 +123,7 @@ const ProfileEdit = ({user, isEditing, setIsEditing}) => {
                 onChange={(e) => setAbout(e.target.value)}
             />
             <button type="submit">Save</button>
-            <button onClick={() => nav(`/user/${user.username}`)}>Cancel</button>
+            <button onClick={() => setIsEditing(false)}>Cancel</button>
         </div>
       </form>
     </div>

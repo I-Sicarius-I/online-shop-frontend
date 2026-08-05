@@ -40,7 +40,7 @@ const Home = () => {
 
     useEffect(() => {
         loadUser()
-    }, [])
+    }, [isLoggedIn])
 
 
     return (<div class="flex-col">
@@ -58,9 +58,6 @@ const Home = () => {
                 )}
 
         </div>
-        {isLoggedIn && (<p>
-            Successfully logged in :D
-        </p>)}
         {isLoggedIn && <button type="submit" onClick={() => {localStorage.clear(); setIsLoggedIn(false)}}>
             Log out</button>}
         <ProductsList/>

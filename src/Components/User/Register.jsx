@@ -43,6 +43,18 @@ const Register = () => {
         }
 
         try{
+            console.log(
+                             {
+                    email: email,
+                    username: username,
+                    fname: fname,
+                    lname: lname,
+                    address: address,
+                    city: city,
+                    code: code,
+                    password: password
+                }
+            )
             const res = await axios.post(BASE_URL + REGISTER_URL, 
                 {
                     email: email,

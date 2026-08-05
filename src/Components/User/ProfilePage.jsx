@@ -11,23 +11,49 @@ const ProfilePage = () => {
     const {token} = useAuth()
     const {username} = useParams()
     const email = useGetEmail()
-    let data = useLoaderData()
-    let user = data.data
     const [exists, setExists] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
+    const [user, setUser] = useState({})
+    const [isLoading, setIsLoading] = useState(false)
 
     const nav = useNavigate()
-    
+    const loadUser = async() => {
+      try{
+        const res = await axios.get(BASE_URL + "/users/" + email,{
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+
+        if(res.status !== 200)
+        {
+          setExists(false)
+          setIsLoading(false)
+          return
+        }
+
+        setUser(res.data)
+        setExists(true)
+        setIsLoading(false)
+      }
+      catch(e){
+        console.error(e)
+        setExists(false)
+        setIsLoading(false)
+      }
+    }
 
     useEffect(() => {
-        setExists(data.status === 200)
+      loadUser()
     }, [])
 
   return (
-    <div class="flex-col">{exists ? 
+    <div class="flex-col">{isLoading ? (
+      <h1>Loading ...</h1>
+    ) : (exists ? 
       (<div>
       <h1 class="font-bold text-3xl text-indigo-300">{user.username}'s profile page</h1>
-      <h2>About:</h2>
+      {user.about !== null && <h2>About:</h2>}
       <p>{user.about}</p>
       {email === user.email && 
         <div class="flex-row">
@@ -36,13 +62,14 @@ const ProfilePage = () => {
         </div>
       }
       {isEditing ? (<ProfileEdit user={user} isEditing={isEditing} setIsEditing={setIsEditing}/>) : (<>
-        <ProductsList email={data.data.email}/>
+        <ProductsList email={email}/>
+        <a href="/add-product">Add Product</a>
         <p>Contact info</p>
         <ul>
           <li>{user.email}</li>
           <li>{user.city}</li>
         </ul>
-      </>)}</div>) : (<p>ERROR 404: User does not exist</p>)}
+      </>)}</div>) : (<p>ERROR 404: User does not exist</p>))}
       <a href="/">Go back to Home</a>
     </div>
   )
