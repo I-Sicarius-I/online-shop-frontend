@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react"
-import { useLoaderData, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import ProductsList from "../Products/ProductsList"
 import { useGetEmail } from "../../Hooks/userHooks"
 import ProfileEdit from "./ProfileEdit"
 import axios, { BASE_URL } from "../../api/axios"
-import useAuth from "../Authentication/AuthContext"
 
 
 const ProfilePage = () => {
-    const {token} = useAuth()
     const {username} = useParams()
     const email = useGetEmail()
     const [exists, setExists] = useState(false)
@@ -69,7 +67,9 @@ const ProfilePage = () => {
           <li>{user.email}</li>
           <li>{user.city}</li>
         </ul>
-      </>)}</div>) : (<p>ERROR 404: User does not exist</p>))}
+      </>)}
+      {user.email === email && <button onClick={() => nav(`/orders/${user.username}`)}>Your Orders</button>}
+      </div>) : (<p>ERROR 404: User does not exist</p>))}
       <a href="/">Go back to Home</a>
     </div>
   )

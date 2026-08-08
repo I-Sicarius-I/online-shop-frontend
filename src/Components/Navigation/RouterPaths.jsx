@@ -6,6 +6,8 @@ import axios, { BASE_URL } from "../../api/axios"
 import ProductPage from '../Products/ProductPage'
 import ProfilePage from '../User/ProfilePage'
 import DeleteProfile from '../User/DeleteProfile'
+import OrderPost from '../Orders/OrderPost'
+import OrderList from '../Orders/OrderList'
 
 const Home = React.lazy(() => import("../Home"))
 const Login = React.lazy(() => import("../User/Login"))
@@ -88,6 +90,14 @@ const RouterPaths = createBrowserRouter([
             return product.data
         },
         element: <ProductPage/>
+    },
+    {
+        path: "/buy-product/:productId",
+        element: <OrderPost/>
+    },
+    {
+        path: "/orders/:username",
+        element: <OrderList/>
     }
 ]);
 

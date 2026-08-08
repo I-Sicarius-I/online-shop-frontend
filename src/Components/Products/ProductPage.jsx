@@ -58,6 +58,7 @@ const ProductPage = () => {
       <div class="flex-row justify-between">
         {isSeller && <button class="border-2 border-amber-600 m-3" onClick={() => nav(`/edit-product/${id}`)}>Edit Product</button>}
         {isSeller && <button class="border-2 border-amber-600 m-3" type="submit" onClick={() => handleDelete()}>Delete product</button>}
+        {!isSeller && <button class="border-2 border-amber-600 m-3" onClick={() => nav(`/buy-product/${id}`)}>Buy product</button>}
       </div>
     </div>
   )
