@@ -42,8 +42,11 @@ const ProfilePage = () => {
     }
 
     useEffect(() => {
-      loadUser()
-    }, [])
+      const func = async() => {
+        await loadUser()
+      }
+      func()
+    }, [user])
 
   return (
     <div class="flex-col">{isLoading ? (

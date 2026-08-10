@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import axios, { BASE_URL } from "../../api/axios"
+import useAuth from "../Authentication/AuthContext"
 
 
-const OrderCard = ({order}) => {
+const OrderCard = ({order, setIsDeletedId}) => {
   const [product, setProduct] = useState({})
-
+  const [isDeleting, setIsDeleting] = useState(false)
 
 
   useEffect(() => {
@@ -34,6 +35,16 @@ const OrderCard = ({order}) => {
           <li>{order.dateShipped} shipped</li>
           <li>{order.dateReceived} delivered</li>
         </ul>
+        {!isDeleting && <button onClick={() => setIsDeleting(true)}>Cancel Order</button>}
+        {isDeleting && 
+          <div>
+            <h3>Are you sure you want to cancel your order?</h3>
+            <div class="flex-row justify-between">
+              <button class="m-2" onClick={() => setIsDeletedId(order.id)}>Delete</button>
+              <button class="m-2" onClick={() => setIsDeleting(false)}>Cancel</button>
+            </div>
+          </div>
+        }
     </div>
   )
 }
