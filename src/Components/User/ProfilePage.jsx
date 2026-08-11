@@ -15,38 +15,37 @@ const ProfilePage = () => {
     const [isLoading, setIsLoading] = useState(false)
 
     const nav = useNavigate()
-    const loadUser = async() => {
-      try{
-        const res = await axios.get(BASE_URL + "/users/" + email,{
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
 
-        if(res.status !== 200)
-        {
-          setExists(false)
-          setIsLoading(false)
-          return
-        }
-
-        setUser(res.data)
-        setExists(true)
-        setIsLoading(false)
-      }
-      catch(e){
-        console.error(e)
-        setExists(false)
-        setIsLoading(false)
-      }
-    }
 
     useEffect(() => {
-      const func = async() => {
-        await loadUser()
+      const loadUser = async() => {
+        try{
+          const res = await axios.get(BASE_URL + "/users/" + email,{
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+
+          if(res.status !== 200)
+          {
+            setExists(false)
+            setIsLoading(false)
+            return
+          }
+
+          setUser(res.data)
+          setExists(true)
+          setIsLoading(false)
+        }
+        catch(e){
+          console.error(e)
+          setExists(false)
+          setIsLoading(false)
+        }
       }
-      func()
-    }, [user])
+
+      loadUser()
+    }, [email])
 
   return (
     <div class="flex-col">{isLoading ? (

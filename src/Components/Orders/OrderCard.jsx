@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 import axios, { BASE_URL } from "../../api/axios"
-import useAuth from "../Authentication/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 
 const OrderCard = ({order, setIsDeletedId}) => {
   const [product, setProduct] = useState({})
   const [isDeleting, setIsDeleting] = useState(false)
 
-
+  const nav = useNavigate()
   useEffect(() => {
     const loadProduct = async() => {
       try{
@@ -45,6 +45,7 @@ const OrderCard = ({order, setIsDeletedId}) => {
             </div>
           </div>
         }
+        <button onClick={() => nav(`/product/${order.productId}`)}>Go to product page</button>
     </div>
   )
 }
