@@ -72,7 +72,7 @@ const ProductPage = () => {
         }
       }
       checkBuyer()
-    }, [product, email])
+    }, [product, email, token])
 
   return (
     <div class="flex-col">
@@ -93,8 +93,9 @@ const ProductPage = () => {
       {isReviewing && 
         <div class="flex-col">
             <ReviewForm productId={product.id} setIsReviewing={setIsReviewing}/>
-        </div>}
-      <ReviewList productId={product.id}/>
+        </div>
+      }
+      <ReviewList productId={id}/>
     </div>
   )
 }

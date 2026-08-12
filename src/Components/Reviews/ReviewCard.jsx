@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import axios, { BASE_URL } from "../../api/axios"
+import { useGetEmail } from "../../Hooks/userHooks"
 
-const ReviewCard = ({review}) => {
+const ReviewCard = ({review, setDeletedId}) => {
     const [username, setUsername] = useState("")
-
+    const email = useGetEmail()
 
     useEffect(() => {
         const loadUser = async() => {
@@ -33,9 +34,10 @@ const ReviewCard = ({review}) => {
 
   return (
     <div class="flex-col">
-      <h2>{username}</h2>
-      <p>{review.text}</p>
+      <h2>{review.text}</h2>
       <p>{review.rating} / 5</p>
+      <h3>By {username}</h3>
+      {review.reviewerId === email && <button onClick={()=> setDeletedId(review.id)}>Delete review</button>}
     </div>
   )
 }
