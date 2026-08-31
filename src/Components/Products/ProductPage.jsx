@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLoaderData, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import useAuth from "../Authentication/AuthContext"
 import { useGetEmail } from "../../Hooks/userHooks"
 import axios, { BASE_URL } from "../../api/axios"
@@ -9,7 +9,8 @@ import ReviewForm from "../Reviews/ReviewForm"
 const ProductPage = () => {
     const {id} = useParams()
     const email = useGetEmail()
-    const product = useLoaderData()
+    const [product, setProduct] = useState({})
+    const [updated, setUpdated] = useState(false)
     const nav = useNavigate()
 
     const {isLoggedIn, token} = useAuth()
@@ -74,6 +75,34 @@ const ProductPage = () => {
       checkBuyer()
     }, [product, email, token])
 
+  useEffect(() => {
+      const loadProduct = async() => {
+    
+          try{
+            const res = await axios.get(BASE_URL + `/products/` + id,
+              {
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              })
+
+              if(res.status !== 200)
+              {
+                console.error(res.data)
+              }
+
+              setProduct(res.data)
+              setUpdated(false)
+            
+          }
+          catch(e){
+            console.error(e)
+          }
+        }
+      
+      loadProduct()
+    }, [isReviewing, updated])
+
   return (
     <div class="flex-col">
       <h1 class="font-bold text-indigo-300">{product.name}</h1>
@@ -82,7 +111,7 @@ const ProductPage = () => {
       <p>{product.description}</p>
       <p>{product.quantity} left</p>
       <p>{product.price}$</p>
-      <p>{product.rating} / 10</p>
+      <p>{product.rating} / 5</p>
       <p>Owner: {product.sellerId}</p>
       <div class="flex-row justify-between">
         {isSeller && <button class="border-2 border-amber-600 m-3" onClick={() => nav(`/edit-product/${id}`)}>Edit Product</button>}
@@ -90,12 +119,14 @@ const ProductPage = () => {
         {!isSeller && <button class="border-2 border-amber-600 m-3" onClick={() => nav(`/buy-product/${id}`)}>Buy product</button>}
       </div>
       {isBuyer && !isReviewing && <button class="border-2 border-amber-600 m-3" onClick={() => setIsReviewing(true)}>Review product</button>}
+      <ReviewList productId={id} updated={updated} setUpdated={setUpdated}/>
       {isReviewing && 
         <div class="flex-col">
-            <ReviewForm productId={product.id} setIsReviewing={setIsReviewing}/>
+            <ReviewForm productId={product.id} setIsReviewing={setIsReviewing} setUpdated={setUpdated}/>
         </div>
       }
-      <ReviewList productId={id}/>
+      <a href="/">Go back</a>
+      
     </div>
   )
 }

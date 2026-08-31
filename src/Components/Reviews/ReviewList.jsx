@@ -3,7 +3,7 @@ import axios, { BASE_URL } from "../../api/axios"
 import ReviewCard from "./ReviewCard"
 import useAuth from "../Authentication/AuthContext"
 
-const ReviewList = ({productId}) => {
+const ReviewList = ({productId, updated, setUpdated}) => {
     const [reviews, setReviews] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
     const {token} = useAuth()
@@ -21,13 +21,14 @@ const ReviewList = ({productId}) => {
 
                 setIsLoaded(res.data.length > 0)
                 setReviews(res.data)
+                setUpdated(true)
             }
             catch(e){
                 console.error(e)
             }
         }
         loadReviews()
-    }, [reviews, productId, isLoaded])
+    }, [updated])
 
     useEffect(() => {
         const handleDelete = async() => {
@@ -46,7 +47,7 @@ const ReviewList = ({productId}) => {
                         console.error(res.data)
                     }
 
-                    setDeletedId(null)
+                    setUpdated(true)
 
                 }catch(e){
                     console.error(e)

@@ -14,30 +14,6 @@ const OrderPost = () => {
 
     const nav = useNavigate()
 
-    const loadProduct = async() => {
-        try{
-            const res = await axios.get(BASE_URL + "/products/" + productId,
-                {
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                }
-            )
-
-            if(res.status !== 200)
-            {
-                console.error(res.data)
-                return
-            }
-
-            setProduct(res.data)
-        }
-        catch(e)
-        {
-            console.error(e)
-        }
-    }
-
     const handleSubmit = async(e) => {
         e.preventDefault()
 
@@ -47,6 +23,7 @@ const OrderPost = () => {
             const res = await axios.post(BASE_URL + "/orders",
                 {
                     quantity: quantity,
+                    state: "ordered",
                     dateOrdered: date,
                     dateShipped: new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1),
                     dateReceived: new Date(date.getFullYear(), date.getMonth(), date.getDate() + 2),
@@ -74,16 +51,42 @@ const OrderPost = () => {
     }
 
     useEffect(() => {
+        const loadProduct = async() => {
+            try{
+                const res = await axios.get(BASE_URL + "/products/" + productId,
+                    {
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }
+                )
+
+                if(res.status !== 200)
+                {
+                    console.error(res.data)
+                    return
+                }
+
+                setProduct(res.data)
+            }
+            catch(e)
+            {
+                console.error(e)
+            }
+        }
         loadProduct()
     }, [])
 
     useEffect(() => {
-        if(quantity < 1){
-            setQuantity(1)
+        const updateQuantity = () => {
+            if(quantity < 1){
+                setQuantity(1)
+            }
+            if(quantity > product.quantity){
+                setQuantity(product.quantity)
+            }
         }
-        if(quantity > product.quantity){
-            setQuantity(product.quantity)
-        }
+        updateQuantity()
     }, [quantity])
 
   return (

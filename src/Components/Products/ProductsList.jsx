@@ -9,6 +9,7 @@ const ProductsList = ({email = ""}) => {
     const [username, setUsername] = useState("")
 
     const getUsername = async() => {
+      if(email !== ""){
       try{
         const res = await axios.get(BASE_URL + "/users/" + email,
           {
@@ -26,36 +27,39 @@ const ProductsList = ({email = ""}) => {
         setUsername(res.data.username)
       }catch(e){
         console.error(e)
-      }
+      }}
     }
-
 
     const loadProducts = async() => {
     
-      const url = `${BASE_URL}/products` + (email !== "" ? `?email=${email}` : "")
-      console.log(url)
-      try
-      {
-        let res = await axios.get(url, {
-          headers: {
-            "Content-Type": "application/json"
+        const url = `${BASE_URL}/products` + (email !== "" ? `?email=${email}` : "")
+        console.log(url)
+        try
+        {
+          let res = await axios.get(url, {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+
+          if(res.status !== 200){
+            console.error(res)
+            return
           }
-        })
 
-        if(res.status !== 200){
-          console.error(res)
-          return
+          setProducts(res.data)
         }
-
-        setProducts(res.data)
-      }
-      catch(error){
-        console.error(error)
-      }
+        catch(error){
+          console.error(error)
+        }
     }
+
     useEffect(() => {
-      loadProducts()
-      getUsername()
+      const loadData = async() => {
+        await getUsername()
+        await loadProducts()
+      }
+      loadData()
     }, [])
 
   return (

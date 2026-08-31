@@ -15,30 +15,31 @@ const Home = () => {
 
     const email = useGetEmail()
     const nav = useNavigate()
-    const loadUser = async() => {
-        try{
-            if(isLoggedIn){
-                const res = await axios.get(BASE_URL + "/users/" + email,
-                    {
-                        headers:{
-                            "Content-Type": "application/json"
-                        }
-                    })
-                
-                if(res.status !== 200){
-                    return 
-                }
-                
-                setUsername(res.data.username)
-            }
-        }
-        catch(e)
-        {
-            console.error(e)
-        }
-    }
+    
 
     useEffect(() => {
+        const loadUser = async() => {
+            try{
+                if(isLoggedIn){
+                    const res = await axios.get(BASE_URL + "/users" + (email !== "" ? "/" + email : ""),
+                        {
+                            headers:{
+                                "Content-Type": "application/json"
+                            }
+                        })
+                    
+                    if(res.status !== 200){
+                        return 
+                    }
+                    
+                    setUsername(res.data.username)
+                }
+            }
+            catch(e)
+            {
+                console.error(e)
+            }
+        }
         loadUser()
     }, [isLoggedIn])
 

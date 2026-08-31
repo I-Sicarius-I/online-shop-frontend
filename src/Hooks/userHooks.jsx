@@ -2,7 +2,7 @@ import { jwtDecode } from "jwt-decode"
 
 export const useGetEmail = () => {
 
-    if (localStorage.hasOwnProperty("token"))
+    if (Object.prototype.hasOwnProperty.call(localStorage, "token"))
     {
         const token = localStorage.getItem("token")
         console.log(token)
@@ -10,4 +10,6 @@ export const useGetEmail = () => {
 
         return decoded.sub
     }
+
+    return "";
 }

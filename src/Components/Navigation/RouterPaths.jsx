@@ -77,18 +77,18 @@ const RouterPaths = createBrowserRouter([
     },
     {
         path: "/product/:id",
-        loader: async({params}) => {
-            let product = await axios.get(BASE_URL + "/products/" + params.id,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            }    
-            )
-            console.log(product)
+        // loader: async({params}) => {
+        //     let product = await axios.get(BASE_URL + "/products/" + params.id,
+        //     {
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         }
+        //     }    
+        //     )
+        //     console.log(product)
 
-            return product.data
-        },
+        //     return product.data
+        // },
         element: <ProductPage/>
     },
     {

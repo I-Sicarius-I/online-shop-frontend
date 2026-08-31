@@ -31,6 +31,7 @@ const OrderCard = ({order, setIsDeletedId}) => {
     <div class="flex-col">
         <h1>Order of {order.quantity} {product.name}{order.quantity > 1 ? "s" : ""}</h1>
         <ul>
+          <li>{order.state}</li>
           <li>{order.dateOrdered} ordered</li>
           <li>{order.dateShipped} shipped</li>
           <li>{order.dateReceived} delivered</li>

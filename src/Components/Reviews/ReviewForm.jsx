@@ -3,7 +3,7 @@ import axios, { BASE_URL } from "../../api/axios"
 import { useGetEmail } from "../../Hooks/userHooks"
 import useAuth from "../Authentication/AuthContext"
 
-const ReviewForm = ({productId, setIsReviewing}) => {
+const ReviewForm = ({productId, setIsReviewing, setUpdated}) => {
     const [text, setText] = useState("")
     const [rating, setRating] = useState(0.)
     const email = useGetEmail()
@@ -13,7 +13,7 @@ const ReviewForm = ({productId, setIsReviewing}) => {
         e.preventDefault()
 
         try{
-            const res = axios.post(BASE_URL + "/reviews", 
+            const res = await axios.post(BASE_URL + "/reviews", 
             {
                 text: text,
                 rating: rating,
@@ -32,6 +32,7 @@ const ReviewForm = ({productId, setIsReviewing}) => {
             }
 
             setIsReviewing(false)
+            setUpdated(true)
         }
         catch(e){
             console.error(e)
