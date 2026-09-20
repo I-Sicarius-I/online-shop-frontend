@@ -54,13 +54,16 @@ const ProfileEdit = ({user, isEditing, setIsEditing}) => {
     }
 
     useEffect(() => {
-        setUsername(user.username)
-        setFname(user.fname)
-        setLname(user.lname)
-        setAddress(user.address)
-        setCity(user.city)
-        setCode(user.code)
-        setAbout(user.about)
+        function loadData(){
+            setUsername(user.username)
+            setFname(user.fname)
+            setLname(user.lname)
+            setAddress(user.address)
+            setCity(user.city)
+            setCode(user.code)
+            setAbout(user.about)
+        }
+        loadData()
     }, [])
 
 

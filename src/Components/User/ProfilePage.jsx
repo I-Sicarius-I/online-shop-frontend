@@ -59,6 +59,7 @@ const ProfilePage = () => {
         <div class="flex-row">
           {!isEditing && <button onClick={() => setIsEditing(true)}>Edit Profile</button>}
           <button class="m-2 bg-red-800 font-bold text-white" onClick={() => nav(`/user/${username}/delete`)}>Delete profile</button>
+          <button class="m-2 bg-orange-400 font-bold text-white" onClick={() => nav(`/user/${username}/changePassword`)}>Change password</button>
         </div>
       }
       {isEditing ? (<ProfileEdit user={user} isEditing={isEditing} setIsEditing={setIsEditing}/>) : (<>

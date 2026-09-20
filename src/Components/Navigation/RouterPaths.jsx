@@ -8,6 +8,7 @@ import ProfilePage from '../User/ProfilePage'
 import DeleteProfile from '../User/DeleteProfile'
 import OrderPost from '../Orders/OrderPost'
 import OrderList from '../Orders/OrderList'
+import ChangePassword from '../User/ChangePassword'
 
 const Home = React.lazy(() => import("../Home"))
 const Login = React.lazy(() => import("../User/Login"))
@@ -50,6 +51,10 @@ const RouterPaths = createBrowserRouter([
     {
         path: "/user/:username/delete",
         element: <DeleteProfile/>
+    },
+    {
+        path: "/user/:username/changePassword",
+        element: <ChangePassword/>
     },
     {
         path: "/add-product",
