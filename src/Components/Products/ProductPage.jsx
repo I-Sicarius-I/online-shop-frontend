@@ -5,6 +5,7 @@ import { useGetEmail } from "../../Hooks/userHooks"
 import axios, { BASE_URL } from "../../api/axios"
 import ReviewList from "../Reviews/ReviewList"
 import ReviewForm from "../Reviews/ReviewForm"
+import Navbar from "../Navigation/Navbar"
 
 const ProductPage = () => {
     const {id} = useParams()
@@ -104,6 +105,7 @@ const ProductPage = () => {
     }, [isReviewing, updated])
 
   return (
+    <><Navbar/>
     <div class="flex-col">
       <h1 class="font-bold text-indigo-300">{product.name}</h1>
       <p>{product.type}</p>
@@ -127,7 +129,7 @@ const ProductPage = () => {
       }
       <a href="/">Go back</a>
       
-    </div>
+    </div></>
   )
 }
 

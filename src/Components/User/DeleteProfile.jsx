@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import useAuth from "../Authentication/AuthContext"
 import axios, { BASE_URL } from "../../api/axios"
 import { useGetEmail } from "../../Hooks/userHooks"
+import Navbar from "../Navigation/Navbar"
 
 
 const DeleteProfile = () => {
@@ -34,11 +35,12 @@ const DeleteProfile = () => {
     }
 
   return (
+    <><Navbar/>
     <div class="flex-col">
         <h1>Do you want to delete your profile?</h1>
         <button class="m-2 bg-green-500 font-bold text-white" type="submit" onClick={() => handleDelete()}>Delete account</button>
         <button class="m-2 bg-red-800 font-bold text-white" onClick={() => nav(`/user/${username}`)}>Cancel</button>
-    </div>
+    </div></>
   )
 }
 

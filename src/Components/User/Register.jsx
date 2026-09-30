@@ -3,9 +3,10 @@ import useAuth from '../Authentication/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../api/axios'
 import axios from 'axios';
+import Navbar from '../Navigation/Navbar';
 
 
-const EMAIL_REGEX = /^.+\@.+\..+/;
+const EMAIL_REGEX = /^.+@.+\..+/;
 const REGISTER_URL = "/auth/register"
 
 const Register = () => {
@@ -24,7 +25,8 @@ const Register = () => {
     const nav = useNavigate();
 
     useEffect(() => {
-        setCheckEmail(EMAIL_REGEX.test(email));
+        const fun = () => {setCheckEmail(EMAIL_REGEX.test(email))};
+        fun();
     }, [email])
 
     const handleRegister = async(event) => {
@@ -81,6 +83,8 @@ const Register = () => {
     }
 
   return (
+    <>
+    <Navbar/>
     <div class="flex flex-col border-amber-500">
       <form onSubmit={handleRegister}>
             <div class = "flex flex-col justify-center align-middle">
@@ -160,7 +164,7 @@ const Register = () => {
             <button class="m-2"type='submit'>Register</button>
             <button onClick={() => {nav("/")}}>Cancel</button>
         </form>
-    </div>
+    </div></>
   )
 }
 

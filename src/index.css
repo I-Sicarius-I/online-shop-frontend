@@ -111,3 +111,25 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.navbar{
+    color: white;
+    position: fixed;
+    top: 0;
+    height: 50px;
+    margin-bottom: 20px;
+    background-color: #3322ad;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    align-items: center;
+}
+.navbar button{
+  border-radius: 5px;
+  border: 2px solid lightskyblue;
+  padding: 2px;
+  margin-left: 10px;
+}
+

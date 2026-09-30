@@ -3,15 +3,16 @@ import React from 'react'
 import './App.css'
 import { AuthProvider } from './Components/Authentication/AuthContext'
 import RouterPaths from './Components/Navigation/RouterPaths'
-import Home from './Components/Home'
-import Register from './Components/User/Register'
+import Navbar from './Components/Navigation/Navbar'
 
 function App() {
 
   return (
     <React.StrictMode>
-      <AuthProvider>
-        <RouterProvider router={RouterPaths}/>
+      <AuthProvider>          
+        <RouterProvider router={RouterPaths}>
+          <Navbar/>
+        </RouterProvider>
       </AuthProvider>
     </React.StrictMode>
   );

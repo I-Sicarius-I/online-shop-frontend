@@ -3,6 +3,7 @@ import { useGetEmail } from "../../Hooks/userHooks";
 import axios, { BASE_URL } from "../../api/axios";
 import useAuth from "../Authentication/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Navigation/Navbar";
 
 const ChangePassword = () => {
 
@@ -54,6 +55,7 @@ const ChangePassword = () => {
     }
   
     return (
+        <><Navbar/>
     <div class="flex-col justify-items: space-around">
       <h2>Change password</h2>
       <form onSubmit={handleSubmit}>
@@ -93,7 +95,7 @@ const ChangePassword = () => {
         <button type="submit" class="m-2">Submit changes</button>
         <button class="flex-1" onClick={()=>nav(`/user/${email}`)}>Cancel</button>
       </form>
-    </div>
+    </div></>
   )
 }
 

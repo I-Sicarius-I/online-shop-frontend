@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../Authentication/AuthContext";
 import axios, { BASE_URL } from "../../api/axios";
+import Navbar from "../Navigation/Navbar";
 
-const EMAIL_REGEX = /^.+\@.+\..+/;
+const EMAIL_REGEX = /^.+@.+\..+/;
 const LOGIN_URL = "/auth/login"
 
 const Login = () => {
@@ -16,7 +17,8 @@ const Login = () => {
     const nav = useNavigate()
 
     useEffect(() => {
-        setCheckEmail(EMAIL_REGEX.test(email));
+        const fun = () => setCheckEmail(EMAIL_REGEX.test(email));
+        fun();
     }, [email])
 
     const handleLogin = async(e) => {
@@ -56,30 +58,31 @@ const Login = () => {
     }
 
   return (
-<div class="flex border-amber-500 border-solid border-2">
-      <form onSubmit={handleLogin}>
-            <div class = "flex flex-col justify-center align-middle">
-                <input 
-                    class="self-center"
-                    type="text" 
-                    placeholder='Enter email...'
-                    value={email}
-                    onChange={(event) => {setEmail(event.target.value)}}
-                    required
-                />
-                <input 
-                    class="self-center"
-                    type="password" 
-                    placeholder='Enter password...'
-                    value={password}
-                    onChange={(event) => {setPassword(event.target.value)}}
-                    required
-                />
-            </div>
-            <button class="m-2" type='submit'>Login</button>
-            <button class="m-2" onClick={() => {nav("/")}}>Cancel</button>
-        </form>
-    </div>
+    <><Navbar/>
+        <div class="flex border-amber-500 border-solid border-2">
+            <form onSubmit={handleLogin}>
+                    <div class = "flex flex-col justify-center align-middle">
+                        <input 
+                            class="self-center"
+                            type="text" 
+                            placeholder='Enter email...'
+                            value={email}
+                            onChange={(event) => {setEmail(event.target.value)}}
+                            required
+                        />
+                        <input 
+                            class="self-center"
+                            type="password" 
+                            placeholder='Enter password...'
+                            value={password}
+                            onChange={(event) => {setPassword(event.target.value)}}
+                            required
+                        />
+                    </div>
+                    <button class="m-2" type='submit'>Login</button>
+                    <button class="m-2" onClick={() => {nav("/")}}>Cancel</button>
+                </form>
+    </div></>
   )
 }
 
